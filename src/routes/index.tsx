@@ -100,7 +100,7 @@ function Index() {
   const bump = (id: string, delta: number) =>
     setQty((q) => {
       const next = Math.max(0, (q[id] ?? 0) + delta);
-      if (delta > 0 && next > CAPACITY[id as keyof typeof CAPACITY]) return q;
+      if (delta > 0 && next > CAPACITY[id as keyof typeof CAPACITY]!) return q;
       return { ...q, [id]: next };
     });
 
