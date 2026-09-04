@@ -271,6 +271,64 @@ function Index() {
           </div>
         </div>
 
+        {/* Bake capacity */}
+        <div className="mt-10 rounded-3xl border border-crust/20 bg-card p-7 shadow-[var(--shadow-soft)] sm:p-9">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+                Weekly bake capacity
+              </p>
+              <h2 className="mt-2 text-3xl font-semibold text-cocoa">Small oven, small batches</h2>
+              <p className="mt-2 max-w-xl text-sm text-muted-foreground">
+                We only bake {totalCapacity} items each week. Once a slot is claimed, it's gone —
+                reserve yours before Thursday at 6pm.
+              </p>
+            </div>
+            <div className="text-right">
+              <p className="font-display text-4xl text-crust">{remaining}</p>
+              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                slots left this week
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {MENU.map((item) => {
+              const cap = CAPACITY[item.id];
+              const taken = qty[item.id] ?? 0;
+              const pct = Math.round((taken / cap) * 100);
+              const soldOut = taken >= cap;
+              return (
+                <div key={item.id} className="rounded-2xl border border-border bg-background p-4">
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-display text-sm text-cocoa">{item.name}</h3>
+                    {soldOut ? (
+                      <span className="rounded-full bg-destructive/10 px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide text-destructive">
+                        Sold out
+                      </span>
+                    ) : (
+                      <span className="text-xs font-semibold text-muted-foreground">
+                        {cap - taken} left
+                      </span>
+                    )}
+                  </div>
+                  <div className="mt-3 h-2 overflow-hidden rounded-full bg-dough">
+                    <div
+                      className={`h-full rounded-full transition-all duration-500 ${
+                        soldOut ? "bg-destructive" : "bg-primary"
+                      }`}
+                      style={{ width: `${pct}%` }}
+                    />
+                  </div>
+                  <p className="mt-2 text-xs text-muted-foreground">
+                    {taken} of {cap} reserved
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
         <h2 className="mt-14 text-4xl font-semibold text-cocoa">This week's menu</h2>
         <p className="mt-2 text-muted-foreground">Add what you'd like, then send your order below.</p>
 
