@@ -382,7 +382,8 @@ function Index() {
                         <button
                           aria-label={`Add one ${item.name}`}
                           onClick={() => bump(item.id, 1)}
-                          className="h-7 w-7 rounded-full text-lg leading-none text-crust transition hover:bg-dough"
+                          disabled={count >= CAPACITY[item.id]}
+                          className="h-7 w-7 rounded-full text-lg leading-none text-crust transition hover:bg-dough disabled:cursor-not-allowed disabled:opacity-30"
                         >
                           +
                         </button>
