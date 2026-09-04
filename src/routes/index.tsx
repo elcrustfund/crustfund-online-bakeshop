@@ -74,7 +74,7 @@ const MENU: Item[] = [
   },
 ];
 
-const CAPACITY: Record<string, number> = {
+const CAPACITY: Record<(typeof MENU)[number]["id"], number> = {
   classic: 24,
   focaccia: 16,
   cookies: 20,
