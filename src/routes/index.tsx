@@ -294,7 +294,7 @@ function Index() {
 
           <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {MENU.map((item) => {
-              const cap = CAPACITY[item.id];
+              const cap = CAPACITY[item.id as keyof typeof CAPACITY]!;
               const taken = qty[item.id] ?? 0;
               const pct = Math.round((taken / cap) * 100);
               const soldOut = taken >= cap;
