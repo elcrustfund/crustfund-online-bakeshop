@@ -74,6 +74,13 @@ const MENU: Item[] = [
   },
 ];
 
+const CAPACITY: Record<string, number> = {
+  classic: 24,
+  focaccia: 16,
+  cookies: 20,
+  special: 12,
+};
+
 function Index() {
   const [qty, setQty] = useState<Record<string, number>>({});
   const [method, setMethod] = useState<"Pickup" | "Delivery">("Pickup");
@@ -86,9 +93,16 @@ function Index() {
   );
   const total = lines.reduce((s, l) => s + l.count * l.price, 0);
   const itemCount = lines.reduce((s, l) => s + l.count, 0);
+  const totalCapacity = Object.values(CAPACITY).reduce((s, c) => s + c, 0);
+  const reserved = itemCount;
+  const remaining = totalCapacity - reserved;
 
   const bump = (id: string, delta: number) =>
-    setQty((q) => ({ ...q, [id]: Math.max(0, (q[id] ?? 0) + delta) }));
+    setQty((q) => {
+      const next = Math.max(0, (q[id] ?? 0) + delta);
+      if (delta > 0 && next > CAPACITY[id]) return q;
+      return { ...q, [id]: next };
+    });
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
