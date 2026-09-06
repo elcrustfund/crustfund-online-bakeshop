@@ -356,7 +356,7 @@ function Index() {
   };
 
   const field =
-    "w-full rounded-2xl border border-border bg-background px-4 py-3 text-foreground placeholder:text-muted-foreground/70 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20";
+    "w-full rounded-2xl border border-border bg-background px-4 py-3 text-foreground placeholder:text-muted-foreground/70 outline-none transition focus:border-sky focus:ring-2 focus:ring-sky/20";
 
   const Marquee = ({ items, dark = false }: { items: string[]; dark?: boolean }) => (
     <div
@@ -366,7 +366,7 @@ function Index() {
         {[...items, ...items, ...items].map((t, i) => (
           <span key={i} className="flex items-center gap-10 font-display text-2xl italic tracking-tight">
             {t}
-            <span className="h-2 w-2 rounded-full bg-primary" />
+            <span className="h-2 w-2 rounded-full bg-sky" />
           </span>
         ))}
       </div>
@@ -385,18 +385,18 @@ function Index() {
             <span className="font-display text-xl font-semibold tracking-tight">El Crustfund</span>
           </a>
           <nav className="hidden items-center gap-7 text-sm font-medium text-muted-foreground md:flex">
-            <a href="#menu" className="transition hover:text-primary">Menu</a>
-            <a href="#story" className="transition hover:text-primary">Our Story</a>
-            <a href="#gallery" className="transition hover:text-primary">Gallery</a>
-            <a href="#visit" className="transition hover:text-primary">Visit Us</a>
+            <a href="#menu" className="transition hover:text-sky">Menu</a>
+            <a href="#story" className="transition hover:text-sky">Our Story</a>
+            <a href="#gallery" className="transition hover:text-sky">Gallery</a>
+            <a href="#visit" className="transition hover:text-sky">Visit Us</a>
           </nav>
           <a
             href="#order"
-            className="flex items-center gap-2 rounded-full bg-primary py-2 pl-4 pr-2 text-primary-foreground transition hover:brightness-110"
+            className="flex items-center gap-2 rounded-full bg-sky py-2 pl-4 pr-2 text-cocoa transition hover:brightness-105"
             aria-label={`Basket, ${itemCount} items`}
           >
-            <ShoppingBasket className="h-5 w-5" />
-            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-background text-sm font-bold text-primary">
+            <ShoppingBasket className="h-5 w-5 text-cocoa" />
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-background text-sm font-bold text-cocoa">
               {itemCount}
             </span>
           </a>
@@ -408,7 +408,7 @@ function Index() {
         <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr]">
           <div>
             <span className="inline-flex items-center gap-3 rounded-full border border-border bg-muted/60 px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.22em] text-cocoa">
-              <Flame className="h-4 w-4 text-primary" />A mother &amp; daughter sourdough microbakery
+              <Flame className="h-4 w-4 text-sky" />A mother &amp; daughter sourdough microbakery
             </span>
             <h1 className="mt-7 font-display text-5xl font-bold leading-[1.02] tracking-tight sm:text-7xl">
               Slow bread.
@@ -425,8 +425,9 @@ function Index() {
             <div className="mt-9 flex flex-wrap items-center gap-4">
               <a
                 href="#menu"
-                className="rounded-full bg-primary px-8 py-4 text-sm font-bold text-primary-foreground shadow-[var(--shadow-soft)] transition hover:brightness-110"
+                className="inline-flex items-center gap-2 rounded-full bg-sky px-8 py-4 text-sm font-bold text-cocoa shadow-[var(--shadow-soft)] transition hover:brightness-105"
               >
+                <ShoppingBasket className="h-4 w-4" />
                 Order this week's drop
               </a>
               <a
@@ -438,7 +439,7 @@ function Index() {
             </div>
           </div>
           <div className="relative">
-            <div className="absolute -right-3 -top-3 hidden h-full w-full rounded-[2rem] bg-primary sm:block" />
+            <div className="absolute -right-3 -top-3 hidden h-full w-full rounded-[2rem] bg-sky sm:block" />
             <div className="relative overflow-hidden rounded-[2rem] border border-ink/80 shadow-[var(--shadow-lift)]">
               <img
                 src={heroImg}
@@ -466,7 +467,7 @@ function Index() {
         <div className="mt-16 rounded-[2rem] border border-ink/80 bg-sky p-7 shadow-[var(--shadow-lift)] sm:p-9">
           <div className="flex flex-wrap items-start gap-5">
             <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-background">
-              <Wheat className="h-7 w-7 text-primary" />
+              <Wheat className="h-7 w-7 text-sky" />
             </span>
             <div className="min-w-[16rem] flex-1">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cocoa/70">
@@ -541,8 +542,8 @@ function Index() {
               onClick={() => setCat(c)}
               className={`rounded-full border px-5 py-2.5 text-sm font-semibold transition ${
                 cat === c
-                  ? "border-primary bg-primary text-primary-foreground"
-                  : "border-border text-foreground hover:border-primary/50"
+                  ? "border-sky bg-sky text-cocoa font-bold shadow-xs"
+                  : "border-border text-foreground hover:border-sky/50"
               }`}
             >
               {c}
@@ -604,8 +605,9 @@ function Index() {
                     {count === 0 ? (
                       <button
                         onClick={() => bump(item, 1)}
-                        className="w-full rounded-full bg-primary px-5 py-3 text-sm font-bold text-primary-foreground transition hover:brightness-110"
+                        className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-sky px-5 py-3 text-sm font-bold text-cocoa transition hover:brightness-105"
                       >
+                        <ShoppingBasket className="h-4 w-4" />
                         Add to order
                       </button>
                     ) : (
@@ -790,7 +792,7 @@ function Index() {
                   const I = Icon as typeof MapPin;
                   return (
                     <li key={t as string} className="flex gap-4">
-                      <I className="mt-1 h-6 w-6 shrink-0 text-primary" />
+                      <I className="mt-1 h-6 w-6 shrink-0 text-sky" />
                       <div>
                         <h3 className="font-display text-xl font-bold">{t as string}</h3>
                         <p className="mt-1 text-muted-foreground">{d as string}</p>
@@ -804,11 +806,11 @@ function Index() {
                   href="https://instagram.com/elcrustfund"
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-2 transition hover:text-primary"
+                  className="flex items-center gap-2 transition hover:text-sky"
                 >
                   <AtSign className="h-5 w-5" /> @elcrustfund
                 </a>
-                <a href="mailto:hello@elcrustfund.com" className="flex items-center gap-2 transition hover:text-primary">
+                <a href="mailto:hello@elcrustfund.com" className="flex items-center gap-2 transition hover:text-sky">
                   <Mail className="h-5 w-5" /> hello@elcrustfund.com
                 </a>
               </div>
@@ -833,8 +835,8 @@ function Index() {
                     onClick={() => setMethod(m)}
                     className={`rounded-2xl border px-4 py-3 text-sm font-bold transition ${
                       method === m
-                        ? "border-primary bg-primary text-primary-foreground"
-                        : "border-border bg-background text-muted-foreground hover:border-primary/40"
+                        ? "border-sky bg-sky text-cocoa"
+                        : "border-border bg-background text-muted-foreground hover:border-sky/50"
                     }`}
                   >
                     {m}
@@ -926,8 +928,9 @@ function Index() {
 
               <button
                 type="submit"
-                className="mt-6 w-full rounded-full bg-primary px-6 py-4 text-sm font-bold text-primary-foreground transition hover:brightness-110"
+                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-sky px-6 py-4 text-sm font-bold text-cocoa transition hover:brightness-105"
               >
+                <ShoppingBasket className="h-4 w-4" />
                 Send my order
               </button>
             </form>
@@ -951,7 +954,7 @@ function Index() {
             <img src={logo.url} alt="" className="h-20 w-20 rounded-full bg-background" />
             <div>
               <p className="font-display text-4xl font-bold">El Crustfund</p>
-              <p className="font-display text-2xl font-bold italic text-primary">
+              <p className="font-display text-2xl font-bold italic text-sky">
                 fermented slowly, shared warmly.
               </p>
             </div>
@@ -981,10 +984,10 @@ function Index() {
             <div>
               <h3 className="text-xs font-semibold uppercase tracking-[0.22em] opacity-60">Explore</h3>
               <ul className="mt-4 space-y-1 opacity-90">
-                <li><a href="#menu" className="hover:text-primary">Menu</a></li>
-                <li><a href="#story" className="hover:text-primary">Our Story</a></li>
-                <li><a href="#gallery" className="hover:text-primary">Gallery</a></li>
-                <li><a href="#visit" className="hover:text-primary">Visit Us</a></li>
+                <li><a href="#menu" className="hover:text-sky">Menu</a></li>
+                <li><a href="#story" className="hover:text-sky">Our Story</a></li>
+                <li><a href="#gallery" className="hover:text-sky">Gallery</a></li>
+                <li><a href="#visit" className="hover:text-sky">Visit Us</a></li>
               </ul>
             </div>
             <div>
