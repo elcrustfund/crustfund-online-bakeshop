@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>El Crustfund | Sourdough Microbakery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dough: '#fffbe1',
+            cream: '#fbf8ee',
+            sky: '#70a0d0',
+            cocoa: '#2d221c',
+            crust: '#4a3328',
+            ink: '#1f1a17',
+          },
+          fontFamily: {
+            display: ['Fraunces', 'Georgia', 'serif'],
+            body: ['Karla', 'system-ui', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Karla', sans-serif; background-color: #fbf8ee; color: #2d221c; }
+    h1, h2, h3, h4, .font-display { font-family: 'Fraunces', Georgia, serif; }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .animate-marquee { display: flex; width: max-content; animation: marquee 30s linear infinite; }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 border-b border-[#e8dfcf] bg-[#fbf8ee]/95 backdrop-blur">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5">
+      <div class="flex items-center gap-3">
+        <div class="h-11 w-11 rounded-full bg-sky flex items-center justify-center text-cocoa font-display font-bold text-xl shadow-inner">
+          EC
+        </div>
+        <span class="font-display text-2xl font-bold tracking-tight text-cocoa">El Crustfund</span>
+      </div>
+      <nav class="hidden items-center gap-7 text-sm font-semibold text-cocoa/70 md:flex">
+        <a href="#menu" class="transition hover:text-sky">Menu</a>
+        <a href="#story" class="transition hover:text-sky">Our Story</a>
+        <a href="#gallery" class="transition hover:text-sky">Gallery</a>
+        <a href="#order" class="transition hover:text-sky">Visit Us</a>
+      </nav>
+      <a href="#order" class="flex items-center gap-2 rounded-full bg-sky py-2 pl-4 pr-2.5 text-cocoa transition hover:brightness-105 shadow-sm">
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+        <span class="text-sm font-bold">Basket</span>
+        <span id="header-badge" class="flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs font-black text-cocoa">0</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="top" class="mx-auto max-w-6xl px-5 pb-14 pt-10">
+    <div class="grid items-center gap-12 lg:grid-cols-[1.1fr_1fr]">
+      <div>
+        <span class="inline-flex items-center gap-2 rounded-full border border-[#e8dfcf] bg-white/70 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-cocoa">
+          <span class="text-sky">🔥</span> A mother &amp; daughter sourdough microbakery
+        </span>
+        <h1 class="mt-6 font-display text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl text-cocoa">
+          Slow bread.<br />
+          <em class="italic text-sky">Wild crumb.</em><br />
+          Family hands.
+        </h1>
+        <p class="mt-5 max-w-lg text-lg leading-relaxed text-cocoa/80">
+          Every loaf, pizza, and Venezuelan cachito is cold-fermented for 36 hours with stone-milled flour and our 7-year starter. Pre-order by Thursday 6:00 PM, pick up warm on the weekend.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center gap-4">
+          <a href="#menu" class="inline-flex items-center gap-2 rounded-full bg-sky px-8 py-4 text-sm font-bold text-cocoa shadow-md transition hover:brightness-105">
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+            Order this week's drop
+          </a>
+          <a href="#story" class="rounded-full border border-[#e8dfcf] px-8 py-4 text-sm font-bold text-cocoa transition hover:bg-white">
+            Our story
+          </a>
+        </div>
+      </div>
+      <div class="relative">
+        <div class="absolute -right-3 -top-3 hidden h-full w-full rounded-[2.5rem] bg-sky sm:block"></div>
+        <div class="relative overflow-hidden rounded-[2.5rem] border-2 border-cocoa shadow-2xl">
+          <img src="./src/assets/boule.jpg" alt="Artisan sourdough loaf" class="h-[420px] w-full object-cover" />
+        </div>
+        <div class="absolute -bottom-6 -left-4 w-[85%] rounded-3xl border border-[#e8dfcf] bg-white p-5 shadow-xl sm:-left-6">
+          <p class="text-xs font-bold uppercase tracking-wider text-sky">Weekend Bake Schedule</p>
+          <h2 class="mt-1 font-display text-xl font-bold text-cocoa">Saturday &amp; Sunday Drops</h2>
+          <p class="mt-0.5 text-xs text-cocoa/70">Orders close Thursday at 6:00 PM sharp.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee Banner -->
+  <div class="overflow-hidden border-y border-[#e8dfcf] bg-white py-4 shadow-xs">
+    <div class="animate-marquee gap-10 whitespace-nowrap text-cocoa">
+      <span class="flex items-center gap-10 font-display text-xl italic font-semibold">SOURDOUGH BREAD <span class="h-2 w-2 rounded-full bg-sky"></span></span>
+      <span class="flex items-center gap-10 font-display text-xl italic font-semibold">ARTISAN PIZZA <span class="h-2 w-2 rounded-full bg-sky"></span></span>
+      <span class="flex items-center gap-10 font-display text-xl italic font-semibold">VENEZUELAN CACHITOS <span class="h-2 w-2 rounded-full bg-sky"></span></span>
+      <span class="flex items-center gap-10 font-display text-xl italic font-semibold">SOURDOUGH FOCACCIA <span class="h-2 w-2 rounded-full bg-sky"></span></span>
+      <span class="flex items-center gap-10 font-display text-xl italic font-semibold">SOURDOUGH BREAD <span class="h-2 w-2 rounded-full bg-sky"></span></span>
+      <span class="flex items-center gap-10 font-display text-xl italic font-semibold">ARTISAN PIZZA <span class="h-2 w-2 rounded-full bg-sky"></span></span>
+      <span class="flex items-center gap-10 font-display text-xl italic font-semibold">VENEZUELAN CACHITOS <span class="h-2 w-2 rounded-full bg-sky"></span></span>
+      <span class="flex items-center gap-10 font-display text-xl italic font-semibold">SOURDOUGH FOCACCIA <span class="h-2 w-2 rounded-full bg-sky"></span></span>
+    </div>
+  </div>
+
+  <!-- Bake Drop Status Banner -->
+  <section class="mx-auto max-w-6xl px-5 pt-16">
+    <div class="rounded-[2.5rem] border border-cocoa/20 bg-sky p-8 shadow-xl sm:p-10 text-cocoa">
+      <div class="flex flex-wrap items-start gap-5">
+        <span class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white text-2xl">
+          🌾
+        </span>
+        <div class="min-w-[16rem] flex-1">
+          <p class="text-xs font-bold uppercase tracking-[0.22em] text-cocoa/75">Order window open</p>
+          <h2 class="mt-1 font-display text-3xl font-bold text-cocoa">Weekend Bake Drop <span class="text-cocoa/60">#37</span></h2>
+          <p class="mt-1 text-sm text-cocoa/85">This week's bake is filling up. Pre-orders close Thursday at 6:00 PM.</p>
+        </div>
+      </div>
+      <p class="mt-7 text-xs font-bold uppercase tracking-[0.22em] text-cocoa/75">Orders close in</p>
+      <div class="mt-2.5 grid max-w-md grid-cols-4 gap-3 text-center">
+        <div class="rounded-2xl bg-white p-3.5 shadow-xs"><div id="cd-days" class="font-display text-3xl font-bold">03</div><div class="text-[0.65rem] font-bold uppercase tracking-wider text-cocoa/60">Days</div></div>
+        <div class="rounded-2xl bg-white p-3.5 shadow-xs"><div id="cd-hrs" class="font-display text-3xl font-bold">05</div><div class="text-[0.65rem] font-bold uppercase tracking-wider text-cocoa/60">Hrs</div></div>
+        <div class="rounded-2xl bg-white p-3.5 shadow-xs"><div id="cd-min" class="font-display text-3xl font-bold">14</div><div class="text-[0.65rem] font-bold uppercase tracking-wider text-cocoa/60">Min</div></div>
+        <div class="rounded-2xl bg-white p-3.5 shadow-xs"><div id="cd-sec" class="font-display text-3xl font-bold">59</div><div class="text-[0.65rem] font-bold uppercase tracking-wider text-cocoa/60">Sec</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section id="menu" class="mx-auto max-w-6xl px-5 py-20">
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-[0.22em] text-sky">This Week's Bake List</span>
+        <h2 class="mt-2 font-display text-4xl font-bold sm:text-5xl text-cocoa">The menu, baked <em class="text-sky italic">to order</em></h2>
+      </div>
+      <div class="flex items-center gap-2 rounded-full bg-[#f1ebe0] px-4 py-2 text-xs font-semibold text-cocoa/80">
+        <span>🕒 Orders close Thursday 6:00 PM sharp</span>
+      </div>
+    </div>
+
+    <!-- Category Filter Tabs -->
+    <div class="mt-8 flex flex-wrap gap-2.5" id="category-tabs">
+      <button onclick="filterCat('All')" class="cat-btn active rounded-full border border-sky bg-sky px-5 py-2.5 text-sm font-bold text-cocoa shadow-xs transition" data-cat="All">All Items (14)</button>
+      <button onclick="filterCat('Sourdough Bread')" class="cat-btn rounded-full border border-[#e8dfcf] bg-white px-5 py-2.5 text-sm font-semibold text-cocoa hover:border-sky/60 transition" data-cat="Sourdough Bread">Sourdough Bread (5)</button>
+      <button onclick="filterCat('Sourdough Pizza')" class="cat-btn rounded-full border border-[#e8dfcf] bg-white px-5 py-2.5 text-sm font-semibold text-cocoa hover:border-sky/60 transition" data-cat="Sourdough Pizza">Sourdough Pizza (3)</button>
+      <button onclick="filterCat('Sourdough Cachitos')" class="cat-btn rounded-full border border-[#e8dfcf] bg-white px-5 py-2.5 text-sm font-semibold text-cocoa hover:border-sky/60 transition" data-cat="Sourdough Cachitos">Sourdough Cachitos (4)</button>
+      <button onclick="filterCat('Sourdough Focaccia')" class="cat-btn rounded-full border border-[#e8dfcf] bg-white px-5 py-2.5 text-sm font-semibold text-cocoa hover:border-sky/60 transition" data-cat="Sourdough Focaccia">Sourdough Focaccia (2)</button>
+    </div>
+
+    <!-- Product Grid -->
+    <div id="product-grid" class="mt-10 grid gap-7 sm:grid-cols-2 lg:grid-cols-3"></div>
+  </section>
+
+  <!-- Story & Team Section -->
+  <section id="story" class="border-t border-[#e8dfcf] bg-[#f8f3e8] py-20">
+    <div class="mx-auto max-w-6xl px-5">
+      <div class="text-center max-w-2xl mx-auto">
+        <span class="text-xs font-bold uppercase tracking-[0.22em] text-sky">The Whole Team</span>
+        <h2 class="mt-2 font-display text-4xl font-bold sm:text-5xl text-cocoa">Two people. <em class="text-sky italic">One oven.</em></h2>
+        <p class="mt-3 text-cocoa/75">Every batch is mixed, shaped, and baked with patient hands.</p>
+      </div>
+
+      <div class="mt-12 grid gap-7 md:grid-cols-2">
+        <div class="rounded-[2.5rem] bg-crust p-8 text-dough sm:p-10 shadow-lg">
+          <p class="text-xs font-bold uppercase tracking-[0.22em] opacity-75">Co-founder · Dough</p>
+          <h3 class="mt-2 font-display text-3xl font-bold">Mom</h3>
+          <p class="mt-4 leading-relaxed opacity-90">Keeper of the starter, ruler of the mixing bowl. She's been baking sourdough since before it was cool — and she'll tell you so. Her morning recipes have never been written down, and never will be.</p>
+          <p class="mt-6 font-display text-xl italic opacity-95">"If the dough isn't talking, you're not listening."</p>
+        </div>
+        <div class="rounded-[2.5rem] bg-sky p-8 text-cocoa sm:p-10 shadow-lg">
+          <p class="text-xs font-bold uppercase tracking-[0.22em] opacity-70">Co-founder · Fire &amp; figures</p>
+          <h3 class="mt-2 font-display text-3xl font-bold">Daughter</h3>
+          <p class="mt-4 leading-relaxed opacity-85">Timer-watcher, oven loader, dough scientist. Left finance to bake bread because "the yield on a hot sourdough boule is infinitely higher." Perfecting every wild crumb.</p>
+          <p class="mt-6 font-display text-xl italic opacity-95">"High hydration, hot hearth, zero shortcuts."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Order & Basket Section -->
+  <section id="order" class="border-t border-[#e8dfcf] bg-[#fbf8ee] py-20">
+    <div class="mx-auto max-w-6xl px-5">
+      <div class="grid gap-12 lg:grid-cols-[1fr_1.2fr]">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-[0.22em] text-sky">Pre-Order &amp; Pickup</span>
+          <h2 class="mt-2 font-display text-4xl font-bold sm:text-5xl text-cocoa">
+            Reserve your <em class="text-sky italic">weekend drop</em>
+          </h2>
+          <p class="mt-4 text-cocoa/80 leading-relaxed">
+            Everything is fermented slowly over 36 hours. Orders close Thursday at 6:00 PM sharp.
+          </p>
+          <div class="mt-8 space-y-4">
+            <div class="flex items-start gap-4 rounded-2xl border border-[#e8dfcf] bg-white p-4">
+              <span class="text-2xl">📍</span>
+              <div>
+                <h4 class="font-display font-bold text-cocoa">Bakery HQ — Porch Pickup</h4>
+                <p class="text-xs text-cocoa/70 mt-0.5">Maple Ave, Suite B · Saturday 8:30 AM–12 PM &amp; Sunday 9–11:30 AM</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 rounded-2xl border border-[#e8dfcf] bg-white p-4">
+              <span class="text-2xl">🧺</span>
+              <div>
+                <h4 class="font-display font-bold text-cocoa">Downtown Farmers Market</h4>
+                <p class="text-xs text-cocoa/70 mt-0.5">Stall #14 · Every Saturday 9 AM–1 PM (come early for fresh cachitos!)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Basket Card -->
+        <div class="rounded-3xl border border-[#e8dfcf] bg-white p-7 sm:p-9 shadow-lg">
+          <div class="flex items-center justify-between border-b border-[#e8dfcf] pb-4">
+            <h3 class="font-display text-2xl font-bold text-cocoa">Your Order Summary</h3>
+            <span id="basket-total" class="font-display text-2xl font-black text-cocoa">$0.00</span>
+          </div>
+
+          <div id="basket-list" class="py-5 min-h-[140px] flex flex-col justify-center">
+            <p class="text-center text-sm text-cocoa/60 italic">Your basket is empty. Add your favorites from the menu above!</p>
+          </div>
+
+          <div class="border-t border-[#e8dfcf] pt-5">
+            <div class="grid grid-cols-2 gap-3 mb-4">
+              <button class="rounded-2xl border border-sky bg-sky/25 py-2.5 text-xs font-bold text-cocoa">Porch Pickup</button>
+              <button class="rounded-2xl border border-[#e8dfcf] py-2.5 text-xs font-bold text-cocoa/70">Local Delivery</button>
+            </div>
+            <button onclick="alert('Thank you! Your pre-order has been placed.')" class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-sky py-4 text-center text-sm font-bold text-cocoa shadow-md transition hover:brightness-105">
+              <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+              Send My Order
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-[#e8dfcf] bg-ink text-[#fbf8ee] py-14">
+    <div class="mx-auto max-w-6xl px-5 flex flex-col items-center justify-between gap-6 sm:flex-row">
+      <div class="flex items-center gap-3">
+        <span class="font-display text-2xl font-bold">El Crustfund</span>
+        <span class="font-display text-lg italic text-sky">fermented slowly, shared warmly.</span>
+      </div>
+      <div class="text-xs text-white/60">
+        Follow us: <a href="https://instagram.com/elcrustfund" target="_blank" class="font-bold text-sky hover:underline transition">@elcrustfund</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const MENU_DATA = [
+      // Sourdough Bread
+      {
+        id: "bread-og-plain",
+        name: "Og Plain",
+        price: 10,
+        cat: "Sourdough Bread",
+        tag: "Classic",
+        desc: "Classic artisan sourdough loaf, 36-hour cold ferment with an open wild crumb and blistered dark crust.",
+        img: "./src/assets/loaf.jpg"
+      },
+      {
+        id: "bread-sundried-tomatoes",
+        name: "Sun-Dried Tomatoes",
+        price: 12,
+        cat: "Sourdough Bread",
+        desc: "Artisan sourdough loaf infused with savory sun-dried tomatoes and aromatic herbs.",
+        img: "./src/assets/bread-sundried-tomato.jpg"
+      },
+      {
+        id: "bread-jalapeno-cheddar",
+        name: "Jalapeño Cheddar",
+        price: 12,
+        cat: "Sourdough Bread",
+        tag: "Popular",
+        desc: "Wild sourdough crumb studded with sharp melted cheddar cheese and spicy sliced jalapeño.",
+        img: "./src/assets/bread-jalapeno-cheddar.jpg"
+      },
+      {
+        id: "bread-lemon-blueberry",
+        name: "Lemon blueberry",
+        price: 12,
+        cat: "Sourdough Bread",
+        tag: "Sweet",
+        desc: "Sweet & tart wild blueberries paired with fragrant fresh lemon zest in a tender sourdough loaf.",
+        img: "./src/assets/bread-lemon-blueberry.jpg"
+      },
+      {
+        id: "bread-pita-6pack",
+        name: "Pita bread (6 pack)",
+        price: 8,
+        cat: "Sourdough Bread",
+        tag: "6 Pack",
+        desc: "Fluffy, pocket-perfect sourdough pita breads, freshly baked. Pack of 6.",
+        img: "./src/assets/pita-bread.jpg"
+      },
+
+      // Sourdough Pizza
+      {
+        id: "pizza-crustfund",
+        name: "Crustfund (Margarita)",
+        price: 12.99,
+        cat: "Sourdough Pizza",
+        tag: "Signature",
+        desc: "Salsa de tomate artesanal de la casa, queso mozzarella y hojas de albahaca fresca.",
+        extras: ["hot honey", "cebolla", "pimenton", "house ricotta", "rugula", "maiz", "honey", "tomates secos"],
+        img: "./src/assets/pizza-margarita.jpg"
+      },
+      {
+        id: "pizza-cash-flow",
+        name: "Cash Flow (Pepperoni)",
+        price: 13.99,
+        cat: "Sourdough Pizza",
+        tag: "Best seller",
+        desc: "Abundante pepperoni sobre una capa de queso mozzarella y salsa de tomate artesanal de la casa.",
+        extras: ["hot honey", "cebolla", "pimenton", "house ricotta", "rugula", "maiz", "honey", "tomates secos"],
+        img: "./src/assets/pizza-pepperoni.jpg"
+      },
+      {
+        id: "pizza-balanced-fund",
+        name: "Balanced Fund (Veggie)",
+        price: 15.99,
+        cat: "Sourdough Pizza",
+        tag: "Veggie",
+        desc: "Vegetales de temporada - pimientos, champiñones, cebolla, aceitunas negras integrados con queso mozzarella y salsa de tomate artesanal de la casa.",
+        extras: ["hot honey", "cebolla", "pimenton", "house ricotta", "rugula", "maiz", "honey", "tomates secos"],
+        img: "./src/assets/pizza-veggie.jpg"
+      },
+
+      // Sourdough Cachitos
+      {
+        id: "cachitos-ham-cheese",
+        name: "Ham & Cheese",
+        price: 5,
+        cat: "Sourdough Cachitos",
+        tag: "Traditional",
+        desc: "Traditional Venezuelan rolled sourdough pastry filled with smoked ham and melted cheese.",
+        img: "./src/assets/cachitos.jpg"
+      },
+      {
+        id: "cachitos-ham-bacon",
+        name: "Ham & Bacon",
+        price: 5,
+        cat: "Sourdough Cachitos",
+        tag: "Savory Venezuelan rolled sourdough pastry filled with cured ham and crispy bacon.",
+        img: "./src/assets/cachitos.jpg"
+      },
+      {
+        id: "cachitos-cheese-cream",
+        name: "Cheese & Cream cheese",
+        price: 5,
+        cat: "Sourdough Cachitos",
+        desc: "Rolled sourdough pastry loaded with a warm blend of melted white cheese and rich cream cheese.",
+        img: "./src/assets/cachitos.jpg"
+      },
+      {
+        id: "cachitos-4pack",
+        name: "(4 pack)",
+        price: 18,
+        cat: "Sourdough Cachitos",
+        tag: "Save $2",
+        desc: "Bundle of 4 fresh sourdough cachitos of your choice. Perfect for breakfast or sharing.",
+        img: "./src/assets/cachitos.jpg"
+      },
+      {
+        id: "cachitos-extras",
+        name: "Extras (Cachitos)",
+        price: 0.5,
+        cat: "Sourdough Cachitos",
+        tag: "Add-on",
+        desc: "Add extra portion of filling to your cachitos (ham, bacon, or cheese blend).",
+        img: "./src/assets/cachitos.jpg"
+      },
+
+      // Sourdough Focaccia
+      {
+        id: "focaccia-gold-asset",
+        name: "Gold Asset",
+        price: 12,
+        cat: "Sourdough Focaccia",
+        tag: "Classic",
+        desc: "Classica plain focaccia con romero y oregano.",
+        img: "./src/assets/focaccia.jpg"
+      },
+      {
+        id: "focaccia-pesto-capital",
+        name: "Pesto capital",
+        price: 15,
+        cat: "Sourdough Focaccia",
+        tag: "Special",
+        desc: "Foccacia con tomates secos, cherry tomatoes, pesto romero y oregano.",
+        img: "./src/assets/focaccia-pesto.jpg"
+      }
+    ];
+
+    let currentCategory = 'All';
+    const cart = {};
+
+    function formatPrice(p) {
+      return p % 1 === 0 ? `$${p}` : `$${p.toFixed(2)}`;
+    }
+
+    function renderProducts() {
+      const grid = document.getElementById('product-grid');
+      const filtered = currentCategory === 'All' 
+        ? MENU_DATA 
+        : MENU_DATA.filter(item => item.cat === currentCategory);
+
+      grid.innerHTML = filtered.map(item => {
+        const qty = cart[item.id] || 0;
+        return `
+          <article class="flex flex-col overflow-hidden rounded-3xl border border-[#e8dfcf] bg-white shadow-sm transition hover:shadow-md">
+            <div class="relative h-56 w-full overflow-hidden bg-[#eee6d8]">
+              <img src="${item.img}" alt="${item.name}" class="h-full w-full object-cover transition duration-300 hover:scale-105" loading="lazy" />
+              ${item.tag ? `<span class="absolute left-4 top-4 rounded-full bg-white/95 px-3.5 py-1 text-[0.7rem] font-bold uppercase tracking-[0.16em] text-cocoa shadow-xs">${item.tag}</span>` : ''}
+            </div>
+            <div class="flex flex-1 flex-col p-6">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="font-display text-2xl font-bold text-cocoa leading-tight">${item.name}</h3>
+                <span class="font-display text-2xl font-bold text-cocoa">${formatPrice(item.price)}</span>
+              </div>
+              <p class="mt-2 text-sm text-cocoa/75 flex-1 leading-relaxed">${item.desc}</p>
+              ${item.extras ? `
+                <div class="mt-4 rounded-2xl border border-[#ece4d6] bg-[#fdfcf7] p-3.5">
+                  <p class="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-cocoa/80">Available Extras:</p>
+                  <div class="mt-2 flex flex-wrap gap-1.5">
+                    ${item.extras.map(e => `<span class="rounded-full border border-[#e8dfcf] bg-white px-2.5 py-0.5 text-xs font-medium text-cocoa/80">+${e}</span>`).join('')}
+                  </div>
+                </div>
+              ` : ''}
+              <div class="mt-5">
+                ${qty === 0 ? `
+                  <button onclick="addToCart('${item.id}', 1)" class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-sky px-5 py-3 text-sm font-bold text-cocoa transition hover:brightness-105 shadow-xs">
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                    Add to order
+                  </button>
+                ` : `
+                  <div class="flex items-center justify-between rounded-full border border-[#e8dfcf] px-3 py-1.5 bg-[#fbf8ee]">
+                    <button onclick="addToCart('${item.id}', -1)" class="h-8 w-8 rounded-full text-lg font-bold text-cocoa hover:bg-white transition flex items-center justify-center">−</button>
+                    <span class="text-sm font-bold text-cocoa">${qty} in basket</span>
+                    <button onclick="addToCart('${item.id}', 1)" class="h-8 w-8 rounded-full text-lg font-bold text-cocoa hover:bg-white transition flex items-center justify-center">+</button>
+                  </div>
+                `}
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function filterCat(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        if (btn.dataset.cat === cat) {
+          btn.className = "cat-btn active rounded-full border border-sky bg-sky px-5 py-2.5 text-sm font-bold text-cocoa shadow-xs transition";
+        } else {
+          btn.className = "cat-btn rounded-full border border-[#e8dfcf] bg-white px-5 py-2.5 text-sm font-semibold text-cocoa hover:border-sky/60 transition";
+        }
+      });
+      renderProducts();
+    }
+
+    function addToCart(id, delta) {
+      const current = cart[id] || 0;
+      const next = Math.max(0, current + delta);
+      if (next === 0) {
+        delete cart[id];
+      } else {
+        cart[id] = next;
+      }
+      renderProducts();
+      updateBasket();
+    }
+
+    function updateBasket() {
+      const entries = Object.entries(cart);
+      const totalCount = entries.reduce((acc, [, q]) => acc + q, 0);
+      document.getElementById('header-badge').innerText = totalCount;
+
+      const basketList = document.getElementById('basket-list');
+      const basketTotal = document.getElementById('basket-total');
+
+      if (entries.length === 0) {
+        basketList.innerHTML = '<p class="text-center text-sm text-cocoa/60 italic">Your basket is empty. Add your favorites from the menu above!</p>';
+        basketTotal.innerText = '$0.00';
+        return;
+      }
+
+      let total = 0;
+      basketList.innerHTML = `
+        <ul class="space-y-3">
+          ${entries.map(([id, q]) => {
+            const item = MENU_DATA.find(m => m.id === id);
+            const lineTotal = item.price * q;
+            total += lineTotal;
+            return `
+              <li class="flex items-center justify-between text-sm">
+                <span class="text-cocoa/90 font-medium">${q} × ${item.name}</span>
+                <span class="font-bold text-cocoa">${formatPrice(lineTotal)}</span>
+              </li>
+            `;
+          }).join('')}
+        </ul>
+      `;
+      basketTotal.innerText = formatPrice(total);
+    }
+
+    renderProducts();
+  </script>
+</body>
+</html>

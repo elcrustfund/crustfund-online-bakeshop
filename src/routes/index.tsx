@@ -741,7 +741,7 @@ function Index() {
             Two people. <em className="text-primary">One oven.</em>
           </h2>
           <div className="mt-10 grid gap-7 md:grid-cols-2">
-            <div className="rounded-[2rem] bg-primary p-8 text-primary-foreground sm:p-10">
+            <div className="rounded-[2rem] bg-crust p-8 text-dough sm:p-10">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] opacity-80">
                 Co-founder · Dough
               </p>
