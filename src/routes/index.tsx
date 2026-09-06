@@ -8,11 +8,18 @@ import logo from "@/assets/logo.png.asset.json";
 import heroImg from "@/assets/boule.jpg";
 import doughImg from "@/assets/dough.jpg";
 import handsImg from "@/assets/hands.jpg";
-import pastriesImg from "@/assets/pastries.jpg";
 import loafImg from "@/assets/loaf.jpg";
 import focacciaImg from "@/assets/focaccia.jpg";
-import cookiesImg from "@/assets/cookies.jpg";
-import specialImg from "@/assets/special.jpg";
+
+import pizzaMargaritaImg from "@/assets/pizza-margarita.jpg";
+import pizzaPepperoniImg from "@/assets/pizza-pepperoni.jpg";
+import pizzaVeggieImg from "@/assets/pizza-veggie.jpg";
+import cachitosImg from "@/assets/cachitos.jpg";
+import focacciaPestoImg from "@/assets/focaccia-pesto.jpg";
+import pitaBreadImg from "@/assets/pita-bread.jpg";
+import breadJalapenoImg from "@/assets/bread-jalapeno-cheddar.jpg";
+import breadLemonBlueberryImg from "@/assets/bread-lemon-blueberry.jpg";
+import breadSundriedTomatoImg from "@/assets/bread-sundried-tomato.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -21,13 +28,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Slow bread, wild crumb, family hands. A mother & daughter sourdough microbakery — 36-hour ferment, pre-order by Wednesday 6 PM, pick up warm on the weekend.",
+          "Slow bread, wild crumb, family hands. A mother & daughter sourdough microbakery — 36-hour ferment, pre-order by Thursday 6:00 PM, pick up warm on the weekend.",
       },
       { property: "og:title", content: "El Crustfund | Mother & Daughter Sourdough Microbakery" },
       {
         property: "og:description",
         content:
-          "36-hour cold-fermented sourdough, focaccia and morning pastries. Weekend bake drops from a two-person family microbakery.",
+          "36-hour cold-fermented sourdough, artisan pizza, Venezuelan cachitos & focaccia. Weekend bake drops from a two-person family microbakery.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -36,78 +43,218 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+type ItemCategory =
+  | "Sourdough Bread"
+  | "Sourdough Pizza"
+  | "Sourdough Cachitos"
+  | "Sourdough Focaccia";
+
 type Item = {
   id: string;
   name: string;
   desc: string;
   price: number;
   img: string;
-  cat: "Wild Sourdoughs" | "Morning Pastries" | "Enriched & Focaccia" | "Pantry";
+  cat: ItemCategory;
   tag?: string;
   cap: number;
+  extras?: string[];
 };
 
 const MENU: Item[] = [
+  // Sourdough Bread
   {
-    id: "focaccia",
-    name: "Focaccia Barese",
-    desc: "High-hydration focaccia drowned in good olive oil, tomatoes, red onion and garden rosemary.",
-    price: 14,
-    img: focacciaImg,
-    cat: "Enriched & Focaccia",
-    tag: "Vegan",
-    cap: 16,
-  },
-  {
-    id: "classic",
-    name: "Country Boule",
-    desc: "36-hour cold ferment, stone-milled flour, blistered dark crust and a custardy open crumb.",
-    price: 12,
+    id: "bread-og-plain",
+    name: "Og Plain",
+    desc: "Classic artisan sourdough loaf, 36-hour cold ferment with an open wild crumb and blistered dark crust.",
+    price: 10,
     img: loafImg,
-    cat: "Wild Sourdoughs",
-    tag: "Best seller",
+    cat: "Sourdough Bread",
+    tag: "Classic",
     cap: 24,
   },
   {
-    id: "buns",
-    name: "Mom's Morning Buns",
-    desc: "Laminated sourdough buns rolled in cinnamon sugar. The recipe has never been written down.",
-    price: 15,
-    img: pastriesImg,
-    cat: "Morning Pastries",
+    id: "bread-sundried-tomatoes",
+    name: "Sun-Dried Tomatoes",
+    desc: "Artisan sourdough loaf infused with savory sun-dried tomatoes and aromatic herbs.",
+    price: 12,
+    img: breadSundriedTomatoImg,
+    cat: "Sourdough Bread",
     cap: 18,
   },
   {
-    id: "cookies",
-    name: "Discard Cookies",
-    desc: "Half dozen. Browned butter, dark chocolate, sea salt — tangy, chewy, dangerous.",
-    price: 10,
-    img: cookiesImg,
-    cat: "Pantry",
+    id: "bread-jalapeno-cheddar",
+    name: "Jalapeño Cheddar",
+    desc: "Wild sourdough crumb studded with sharp melted cheddar cheese and spicy sliced jalapeño.",
+    price: 12,
+    img: breadJalapenoImg,
+    cat: "Sourdough Bread",
+    tag: "Popular",
+    cap: 18,
+  },
+  {
+    id: "bread-lemon-blueberry",
+    name: "Lemon blueberry",
+    desc: "Sweet & tart wild blueberries paired with fragrant fresh lemon zest in a tender sourdough loaf.",
+    price: 12,
+    img: breadLemonBlueberryImg,
+    cat: "Sourdough Bread",
+    tag: "Sweet",
+    cap: 16,
+  },
+  {
+    id: "bread-pita-6pack",
+    name: "Pita bread (6 pack)",
+    desc: "Fluffy, pocket-perfect sourdough pita breads, freshly baked. Pack of 6.",
+    price: 8,
+    img: pitaBreadImg,
+    cat: "Sourdough Bread",
+    tag: "6 pack",
+    cap: 20,
+  },
+
+  // Sourdough Pizza
+  {
+    id: "pizza-crustfund",
+    name: "Crustfund (Margarita)",
+    desc: "Salsa de tomate artesanal de la casa, queso mozzarella y hojas de albahaca fresca.",
+    price: 12.99,
+    img: pizzaMargaritaImg,
+    cat: "Sourdough Pizza",
+    tag: "Signature",
+    extras: [
+      "hot honey",
+      "cebolla",
+      "pimenton",
+      "house ricotta",
+      "rugula",
+      "maiz",
+      "honey",
+      "tomates secos",
+    ],
+    cap: 15,
+  },
+  {
+    id: "pizza-cash-flow",
+    name: "Cash Flow (Pepperoni)",
+    desc: "Abundante pepperoni sobre una capa de queso mozzarella y salsa de tomate artesanal de la casa.",
+    price: 13.99,
+    img: pizzaPepperoniImg,
+    cat: "Sourdough Pizza",
+    tag: "Best seller",
+    extras: [
+      "hot honey",
+      "cebolla",
+      "pimenton",
+      "house ricotta",
+      "rugula",
+      "maiz",
+      "honey",
+      "tomates secos",
+    ],
     cap: 20,
   },
   {
-    id: "special",
-    name: "Cinnamon Swirl Babka",
-    desc: "Enriched sweet sourdough, cocoa-cinnamon swirl, honey glaze. This week only.",
-    price: 16,
-    img: specialImg,
-    cat: "Enriched & Focaccia",
-    tag: "This week only",
-    cap: 12,
+    id: "pizza-balanced-fund",
+    name: "Balanced Fund (Veggie)",
+    desc: "Vegetales de temporada - pimientos, champiñones, cebolla, aceitunas negras integrados con queso mozzarella y salsa de tomate artesanal de la casa.",
+    price: 15.99,
+    img: pizzaVeggieImg,
+    cat: "Sourdough Pizza",
+    tag: "Veggie",
+    extras: [
+      "hot honey",
+      "cebolla",
+      "pimenton",
+      "house ricotta",
+      "rugula",
+      "maiz",
+      "honey",
+      "tomates secos",
+    ],
+    cap: 15,
+  },
+
+  // Sourdough Cachitos
+  {
+    id: "cachitos-ham-cheese",
+    name: "Ham & Cheese",
+    desc: "Traditional Venezuelan rolled sourdough pastry filled with smoked ham and melted cheese.",
+    price: 5,
+    img: cachitosImg,
+    cat: "Sourdough Cachitos",
+    tag: "Traditional",
+    cap: 30,
   },
   {
-    id: "seeded",
-    name: "Seeded Sesame Batard",
-    desc: "Toasted sesame and flax crust over a soft, faintly sweet crumb. Best for toast.",
-    price: 13,
-    img: heroImg,
-    cat: "Wild Sourdoughs",
-    cap: 18,
+    id: "cachitos-ham-bacon",
+    name: "Ham & Bacon",
+    desc: "Savory Venezuelan rolled sourdough pastry filled with cured ham and crispy bacon.",
+    price: 5,
+    img: cachitosImg,
+    cat: "Sourdough Cachitos",
+    cap: 30,
+  },
+  {
+    id: "cachitos-cheese-cream",
+    name: "Cheese & Cream cheese",
+    desc: "Rolled sourdough pastry loaded with a warm blend of melted white cheese and rich cream cheese.",
+    price: 5,
+    img: cachitosImg,
+    cat: "Sourdough Cachitos",
+    cap: 25,
+  },
+  {
+    id: "cachitos-4pack",
+    name: "(4 pack)",
+    desc: "Bundle of 4 fresh sourdough cachitos of your choice. Perfect for breakfast or sharing.",
+    price: 18,
+    img: cachitosImg,
+    cat: "Sourdough Cachitos",
+    tag: "Save $2",
+    cap: 15,
+  },
+  {
+    id: "cachitos-extras",
+    name: "Extras (Cachitos)",
+    desc: "Add extra portion of filling to your cachitos (ham, bacon, or cheese blend).",
+    price: 0.5,
+    img: cachitosImg,
+    cat: "Sourdough Cachitos",
+    tag: "Add-on",
+    cap: 50,
+  },
+
+  // Sourdough Focaccia
+  {
+    id: "focaccia-gold-asset",
+    name: "Gold Asset",
+    desc: "Classica plain focaccia con romero y oregano.",
+    price: 12,
+    img: focacciaImg,
+    cat: "Sourdough Focaccia",
+    tag: "Classic",
+    cap: 16,
+  },
+  {
+    id: "focaccia-pesto-capital",
+    name: "Pesto capital",
+    desc: "Foccacia con tomates secos, cherry tomatoes, pesto romero y oregano.",
+    price: 15,
+    img: focacciaPestoImg,
+    cat: "Sourdough Focaccia",
+    tag: "Special",
+    cap: 14,
   },
 ];
 
-const CATS = ["All", "Wild Sourdoughs", "Morning Pastries", "Enriched & Focaccia", "Pantry"] as const;
+const CATS = [
+  "All",
+  "Sourdough Bread",
+  "Sourdough Pizza",
+  "Sourdough Cachitos",
+  "Sourdough Focaccia",
+] as const;
 
 const BATCH_CAPACITY = 120;
 
@@ -148,13 +295,13 @@ function useCountdown() {
     const t = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(t);
   }, []);
-  // Next Monday 08:00 local
+  // Next Thursday 18:00 local (orders close Thursday 6:00 PM)
   const target = useMemo(() => {
     const d = new Date(now);
     const next = new Date(d);
-    next.setHours(8, 0, 0, 0);
-    const days = (8 - d.getDay()) % 7;
-    next.setDate(d.getDate() + (days === 0 && d.getHours() >= 8 ? 7 : days));
+    next.setHours(18, 0, 0, 0);
+    const days = (4 - d.getDay() + 7) % 7;
+    next.setDate(d.getDate() + (days === 0 && d.getHours() >= 18 ? 7 : days));
     return next.getTime();
   }, [Math.floor(now / 60000)]);
   const diff = Math.max(0, target - now);
@@ -175,6 +322,8 @@ function Index() {
   const [day, setDay] = useState<"Saturday" | "Sunday">("Saturday");
   const [form, setForm] = useState({ name: "", phone: "", email: "", notes: "" });
   const cd = useCountdown();
+
+  const formatPrice = (p: number) => (p % 1 === 0 ? `$${p}` : `$${p.toFixed(2)}`);
 
   const lines = useMemo(
     () => MENU.filter((i) => (qty[i.id] ?? 0) > 0).map((i) => ({ ...i, count: qty[i.id]! })),
@@ -270,7 +419,7 @@ function Index() {
             </h1>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-muted-foreground">
               Every loaf at El Crustfund is mixed, shaped and baked by the two of us — a 36-hour
-              ferment, stone-milled flour, and one very patient starter. Order before Wednesday
+              ferment, stone-milled flour, and one very patient starter. Order before Thursday
               night, pick up warm on the weekend.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-4">
@@ -307,7 +456,7 @@ function Index() {
                 Bakes drop Saturday &amp; Sunday mornings
               </h2>
               <p className="mt-1 text-sm text-muted-foreground">
-                Orders close Wednesday 6:00 PM sharp.
+                Orders close Thursday 6:00 PM sharp.
               </p>
             </div>
           </div>
@@ -327,7 +476,7 @@ function Index() {
                 Weekend Bake Drop <span className="text-cocoa/60">#37</span>
               </h2>
               <p className="mt-1 max-w-md text-cocoa/80">
-                This week's bake is filling up. The window closes Wednesday at 6:00 PM.
+                This week's bake is filling up. The window closes Thursday at 6:00 PM.
               </p>
             </div>
           </div>
@@ -367,7 +516,13 @@ function Index() {
       </section>
 
       <Marquee
-        items={["FERMENTED 36 HOURS", "MOTHER & DAUGHTER", "STONE-MILLED FLOUR", "SATURDAY & SUNDAY DROPS"]}
+        items={[
+          "FERMENTED 36 HOURS",
+          "SOURDOUGH BREAD",
+          "ARTISAN PIZZA",
+          "VENEZUELAN CACHITOS",
+          "SOURDOUGH FOCACCIA",
+        ]}
       />
 
       {/* Menu */}
@@ -413,7 +568,7 @@ function Index() {
                     className="h-56 w-full object-cover"
                   />
                   {item.tag && (
-                    <span className="absolute left-4 top-4 rounded-full bg-background/95 px-4 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.16em] text-cocoa">
+                    <span className="absolute left-4 top-4 rounded-full bg-background/95 px-4 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.16em] text-cocoa shadow-sm">
                       {item.tag}
                     </span>
                   )}
@@ -421,11 +576,30 @@ function Index() {
                 <div className="flex flex-1 flex-col p-6">
                   <div className="flex items-start justify-between gap-4">
                     <h3 className="font-display text-2xl font-bold leading-tight">{item.name}</h3>
-                    <span className="font-display text-2xl font-bold text-primary">${item.price}</span>
+                    <span className="font-display text-2xl font-bold text-primary">
+                      {formatPrice(item.price)}
+                    </span>
                   </div>
                   <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
                     {item.desc}
                   </p>
+                  {item.extras && item.extras.length > 0 && (
+                    <div className="mt-4 rounded-2xl border border-border/70 bg-muted/40 p-3.5">
+                      <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-cocoa/80">
+                        Available Extras:
+                      </p>
+                      <div className="mt-2 flex flex-wrap gap-1.5">
+                        {item.extras.map((extra) => (
+                          <span
+                            key={extra}
+                            className="rounded-full border border-border bg-background/90 px-2.5 py-0.5 text-xs font-medium text-foreground/80 shadow-xs"
+                          >
+                            +{extra}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                   <div className="mt-5">
                     {count === 0 ? (
                       <button
@@ -524,8 +698,16 @@ function Index() {
             Crust, crumb &amp; <em className="text-primary">flour dust</em>
           </h2>
           <div className="mt-10 grid grid-cols-2 gap-5 lg:grid-cols-4">
-            {[loafImg, pastriesImg, focacciaImg, doughImg, specialImg, handsImg, cookiesImg, heroImg].map(
-              (src, i) => (
+            {[
+              pizzaPepperoniImg,
+              cachitosImg,
+              focacciaPestoImg,
+              breadJalapenoImg,
+              pizzaMargaritaImg,
+              breadLemonBlueberryImg,
+              breadSundriedTomatoImg,
+              heroImg,
+            ].map((src, i) => (
                 <div
                   key={i}
                   className={`overflow-hidden rounded-3xl border border-border ${
@@ -602,8 +784,8 @@ function Index() {
               <ul className="space-y-7">
                 {[
                   [MapPin, "Bakery HQ — Porch Pickup", "Maple Ave, Suite B · Saturday 8:30 AM–12 PM & Sunday 9–11:30 AM"],
-                  [MapPin, "Downtown Farmers Market — Stall #14", "Every Saturday, 9 AM–1 PM · come early for croissants"],
-                  [Clock, "Pre-order rhythm", "Orders open Monday morning, close Wednesday 6:00 PM sharp"],
+                  [MapPin, "Downtown Farmers Market — Stall #14", "Every Saturday, 9 AM–1 PM · come early for fresh cachitos & bread"],
+                  [Clock, "Pre-order rhythm", "Orders open Monday morning, close Thursday 6:00 PM sharp"],
                 ].map(([Icon, t, d]) => {
                   const I = Icon as typeof MapPin;
                   return (
@@ -715,7 +897,9 @@ function Index() {
               <div className="mt-6 rounded-2xl bg-muted/70 p-5">
                 <div className="flex items-center justify-between">
                   <span className="font-display text-lg font-bold">Your basket</span>
-                  <span className="font-display text-lg font-bold text-primary">${total}</span>
+                  <span className="font-display text-lg font-bold text-primary">
+                    {formatPrice(total)}
+                  </span>
                 </div>
                 {lines.length === 0 ? (
                   <p className="mt-2 text-sm text-muted-foreground">
@@ -728,7 +912,9 @@ function Index() {
                         <span>
                           {l.count} × {l.name}
                         </span>
-                        <span className="font-semibold text-foreground">${l.count * l.price}</span>
+                        <span className="font-semibold text-foreground">
+                          {formatPrice(l.count * l.price)}
+                        </span>
                       </li>
                     ))}
                   </ul>
@@ -753,7 +939,12 @@ function Index() {
       <footer className="bg-ink text-dough">
         <Marquee
           dark
-          items={["BAKED WITH A 7-YEAR STARTER", "SATURDAY & SUNDAY DROPS", "PRE-ORDERS ONLY"]}
+          items={[
+            "BAKED WITH A 7-YEAR STARTER",
+            "SATURDAY & SUNDAY DROPS",
+            "@ELCRUSTFUND",
+            "PRE-ORDERS ONLY",
+          ]}
         />
         <div className="mx-auto max-w-6xl px-5 py-16">
           <div className="flex flex-wrap items-center gap-6">
@@ -783,7 +974,7 @@ function Index() {
               </h3>
               <ul className="mt-4 space-y-1 opacity-90">
                 <li>Opens Monday 8 AM</li>
-                <li>Closes Wednesday 6 PM</li>
+                <li>Closes Thursday 6 PM</li>
                 <li>Sharp. Mom's rules.</li>
               </ul>
             </div>
