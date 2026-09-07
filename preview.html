@@ -32,8 +32,8 @@
   <style>
     body { font-family: 'Karla', sans-serif; background-color: #fbf8ee; color: #2d221c; }
     h1, h2, h3, h4, .font-display { font-family: 'Fraunces', Georgia, serif; }
-    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    .animate-marquee { display: flex; width: max-content; animation: marquee 30s linear infinite; }
+    @keyframes marquee { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-100%, 0, 0); } }
+    .animate-marquee { display: flex; flex-shrink: 0; animation: marquee 40s linear infinite; will-change: transform; }
   </style>
 </head>
 <body class="min-h-screen">
@@ -101,16 +101,44 @@
   </section>
 
   <!-- Marquee Banner -->
-  <div class="overflow-hidden border-y border-[#e8dfcf] bg-white py-4 shadow-xs">
-    <div class="animate-marquee gap-10 whitespace-nowrap text-cocoa">
-      <span class="flex items-center gap-10 font-display text-xl italic font-semibold">SOURDOUGH BREAD <span class="h-2 w-2 rounded-full bg-sky"></span></span>
-      <span class="flex items-center gap-10 font-display text-xl italic font-semibold">ARTISAN PIZZA <span class="h-2 w-2 rounded-full bg-sky"></span></span>
-      <span class="flex items-center gap-10 font-display text-xl italic font-semibold">VENEZUELAN CACHITOS <span class="h-2 w-2 rounded-full bg-sky"></span></span>
-      <span class="flex items-center gap-10 font-display text-xl italic font-semibold">SOURDOUGH FOCACCIA <span class="h-2 w-2 rounded-full bg-sky"></span></span>
-      <span class="flex items-center gap-10 font-display text-xl italic font-semibold">SOURDOUGH BREAD <span class="h-2 w-2 rounded-full bg-sky"></span></span>
-      <span class="flex items-center gap-10 font-display text-xl italic font-semibold">ARTISAN PIZZA <span class="h-2 w-2 rounded-full bg-sky"></span></span>
-      <span class="flex items-center gap-10 font-display text-xl italic font-semibold">VENEZUELAN CACHITOS <span class="h-2 w-2 rounded-full bg-sky"></span></span>
-      <span class="flex items-center gap-10 font-display text-xl italic font-semibold">SOURDOUGH FOCACCIA <span class="h-2 w-2 rounded-full bg-sky"></span></span>
+  <div class="relative flex overflow-hidden border-y border-[#e8dfcf] bg-white py-4 shadow-xs select-none">
+    <div class="animate-marquee items-center whitespace-nowrap">
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>SOURDOUGH FERMENTED 36 HOURS</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>ARTISAN PIZZA</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>VENEZUELAN CACHITOS</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>SOURDOUGH FOCACCIA</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>SOURDOUGH BREAD</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>SOURDOUGH FERMENTED 36 HOURS</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>ARTISAN PIZZA</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>VENEZUELAN CACHITOS</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>SOURDOUGH FOCACCIA</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>SOURDOUGH BREAD</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>SOURDOUGH FERMENTED 36 HOURS</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>ARTISAN PIZZA</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>VENEZUELAN CACHITOS</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>SOURDOUGH FOCACCIA</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>SOURDOUGH BREAD</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+    </div>
+    <div aria-hidden="true" class="animate-marquee items-center whitespace-nowrap">
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>SOURDOUGH FERMENTED 36 HOURS</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>ARTISAN PIZZA</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>VENEZUELAN CACHITOS</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>SOURDOUGH FOCACCIA</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>SOURDOUGH BREAD</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>SOURDOUGH FERMENTED 36 HOURS</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>ARTISAN PIZZA</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>VENEZUELAN CACHITOS</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>SOURDOUGH FOCACCIA</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>SOURDOUGH BREAD</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>SOURDOUGH FERMENTED 36 HOURS</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>ARTISAN PIZZA</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>VENEZUELAN CACHITOS</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>SOURDOUGH FOCACCIA</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
+      <span class="inline-flex items-center font-display text-xl italic font-semibold text-cocoa"><span>SOURDOUGH BREAD</span><span class="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky"></span></span>
     </div>
   </div>
 

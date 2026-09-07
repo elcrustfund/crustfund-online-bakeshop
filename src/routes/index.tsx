@@ -404,20 +404,36 @@ function Index() {
   const field =
     "w-full rounded-2xl border border-border bg-background px-4 py-3 text-foreground placeholder:text-muted-foreground/70 outline-none transition focus:border-sky focus:ring-2 focus:ring-sky/20";
 
-  const Marquee = ({ items, dark = false }: { items: string[]; dark?: boolean }) => (
-    <div
-      className={`overflow-hidden border-y py-4 ${dark ? "border-dough/15 bg-ink text-dough" : "border-border bg-background"}`}
-    >
-      <div className="flex w-max animate-marquee gap-10 whitespace-nowrap">
-        {[...items, ...items, ...items].map((t, i) => (
-          <span key={i} className="flex items-center gap-10 font-display text-2xl italic tracking-tight">
-            {t}
-            <span className="h-2 w-2 rounded-full bg-sky" />
-          </span>
-        ))}
+  const Marquee = ({ items, dark = false }: { items: string[]; dark?: boolean }) => {
+    const trackItems = [...items, ...items, ...items];
+    return (
+      <div
+        className={`relative flex overflow-hidden border-y py-4 select-none ${
+          dark ? "border-dough/15 bg-ink text-dough" : "border-border bg-background"
+        }`}
+      >
+        <div className="flex shrink-0 animate-marquee items-center whitespace-nowrap will-change-transform">
+          {trackItems.map((t, i) => (
+            <span key={`a-${i}`} className="inline-flex items-center font-display text-2xl italic tracking-tight">
+              <span>{t}</span>
+              <span className="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky" />
+            </span>
+          ))}
+        </div>
+        <div
+          aria-hidden="true"
+          className="flex shrink-0 animate-marquee items-center whitespace-nowrap will-change-transform"
+        >
+          {trackItems.map((t, i) => (
+            <span key={`b-${i}`} className="inline-flex items-center font-display text-2xl italic tracking-tight">
+              <span>{t}</span>
+              <span className="mx-8 h-2 w-2 shrink-0 rounded-full bg-sky" />
+            </span>
+          ))}
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <div className="min-h-screen text-foreground">
@@ -564,11 +580,11 @@ function Index() {
 
       <Marquee
         items={[
-          "FERMENTED 36 HOURS",
-          "SOURDOUGH BREAD",
+          "SOURDOUGH FERMENTED 36 HOURS",
           "ARTISAN PIZZA",
           "VENEZUELAN CACHITOS",
           "SOURDOUGH FOCACCIA",
+          "SOURDOUGH BREAD",
         ]}
       />
 
