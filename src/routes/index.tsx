@@ -500,7 +500,7 @@ function Index() {
                 Oven schedule
               </p>
               <h2 className="mt-2 font-display text-2xl font-bold leading-snug">
-                Bakes drop Saturday &amp; Sunday mornings
+                Bakes drop Saturday &amp; Sunday (12–4 PM)
               </h2>
               <p className="mt-1 text-sm text-muted-foreground">
                 Orders close Thursday 6:00 PM sharp.
@@ -831,7 +831,7 @@ function Index() {
             <div>
               <ul className="space-y-7">
                 {[
-                  [MapPin, "Bakery HQ — Porch Pickup", "Address provided upon order request · Saturday 8:30 AM–12 PM & Sunday 9–11:30 AM"],
+                  [MapPin, "Bakery HQ — Porch Pickup", "Address provided upon order request · Saturday & Sunday 12–4 PM"],
                   [Clock, "Pre-order rhythm", "Orders open Monday morning, close Thursday 6:00 PM sharp"],
                 ].map(([Icon, t, d]) => {
                   const I = Icon as typeof MapPin;
@@ -1032,8 +1032,8 @@ function Index() {
                 Bake drops
               </h3>
               <ul className="mt-4 space-y-1 opacity-90">
-                <li>Saturday 8:30–12</li>
-                <li>Sunday 9–11:30</li>
+                <li>Saturday 12–4 PM</li>
+                <li>Sunday 12–4 PM</li>
                 <li>Pre-orders only</li>
               </ul>
             </div>
