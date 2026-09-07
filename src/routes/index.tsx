@@ -824,15 +824,14 @@ function Index() {
         <div className="mx-auto max-w-6xl px-5">
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">Come say hi</p>
           <h2 className="mt-3 font-display text-4xl font-bold leading-tight sm:text-5xl">
-            Find us at the <em className="text-primary">stall &amp; the porch</em>
+            Find us at the <em className="text-primary">porch</em>
           </h2>
 
           <div className="mt-10 grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
             <div>
               <ul className="space-y-7">
                 {[
-                  [MapPin, "Bakery HQ — Porch Pickup", "Maple Ave, Suite B · Saturday 8:30 AM–12 PM & Sunday 9–11:30 AM"],
-                  [MapPin, "Downtown Farmers Market — Stall #14", "Every Saturday, 9 AM–1 PM · come early for fresh cachitos & bread"],
+                  [MapPin, "Bakery HQ — Porch Pickup", "Address provided upon order request · Saturday 8:30 AM–12 PM & Sunday 9–11:30 AM"],
                   [Clock, "Pre-order rhythm", "Orders open Monday morning, close Thursday 6:00 PM sharp"],
                 ].map(([Icon, t, d]) => {
                   const I = Icon as typeof MapPin;
@@ -1069,7 +1068,7 @@ function Index() {
           </div>
 
           <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-dough/20 pt-6 text-sm opacity-60">
-            <p>© 2026 El Crustfund Microbakery · Maple Ave, Suite B</p>
+            <p>© 2026 El Crustfund Microbakery</p>
             <p className="flex items-center gap-2">
               <Wheat className="h-4 w-4" /> Baked with love by mom &amp; daughter
             </p>
