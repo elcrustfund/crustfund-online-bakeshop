@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
-import { Wheat, MapPin, Clock, AtSign, Mail, ShoppingBasket, Flame } from "lucide-react";
+import { Wheat, MapPin, Clock, AtSign, Mail, ShoppingBasket, Flame, Loader2, CheckCircle2 } from "lucide-react";
 
 import logo from "@/assets/logo.png.asset.json";
 import heroImg from "@/assets/boule.jpg";
@@ -340,7 +340,10 @@ function Index() {
       return { ...q, [item.id]: next };
     });
 
-  const submit = (e: React.FormEvent) => {
+  const [sending, setSending] = useState(false);
+  const [orderSent, setOrderSent] = useState(false);
+
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (itemCount === 0) {
       toast.error("Your basket is empty — add something warm from the bake list.");
@@ -350,9 +353,52 @@ function Index() {
       toast.error("Please fill in your name, phone and email.");
       return;
     }
-    toast.success(`Thank you, ${form.name}! Your ${method.toLowerCase()} for ${day} is booked.`);
-    setQty({});
-    setForm({ name: "", phone: "", email: "", notes: "" });
+
+    const orderItemsSummary = lines
+      .map((l) => `${l.count}x ${l.name} (${formatPrice(l.count * l.price)})`)
+      .join("\n");
+
+    setSending(true);
+    try {
+      const res = await fetch("https://formsubmit.co/ajax/elcrustfundbakery@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          _subject: `🥖 New Order: ${form.name} (${formatPrice(total)}) - ${method} ${day}`,
+          _template: "table",
+          _captcha: "false",
+          "Customer Name": form.name,
+          "Phone Number": form.phone,
+          "Email Address": form.email,
+          "Fulfillment Type": method,
+          "Pickup / Delivery Day": day,
+          "Items Ordered": orderItemsSummary,
+          "Total Basket Amount": formatPrice(total),
+          "Address or Special Notes": form.notes || "None provided",
+          "Order Submitted At": new Date().toLocaleString("en-US", {
+            dateStyle: "full",
+            timeStyle: "short",
+          }),
+        }),
+      });
+
+      if (res.ok) {
+        toast.success(`Thank you, ${form.name}! Your order has been placed and sent to elcrustfundbakery@gmail.com.`);
+        setOrderSent(true);
+        setQty({});
+        setForm({ name: "", phone: "", email: "", notes: "" });
+      } else {
+        throw new Error("FormSubmit returned non-ok response");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Order placed, but email could not be delivered automatically. Please message us on Instagram @elcrustfund or email elcrustfundbakery@gmail.com!");
+    } finally {
+      setSending(false);
+    }
   };
 
   const field =
@@ -810,8 +856,8 @@ function Index() {
                 >
                   <AtSign className="h-5 w-5" /> @elcrustfund
                 </a>
-                <a href="mailto:hello@elcrustfund.com" className="flex items-center gap-2 transition hover:text-sky">
-                  <Mail className="h-5 w-5" /> hello@elcrustfund.com
+                <a href="mailto:elcrustfundbakery@gmail.com" className="flex items-center gap-2 transition hover:text-sky">
+                  <Mail className="h-5 w-5" /> elcrustfundbakery@gmail.com
                 </a>
               </div>
             </div>
@@ -822,6 +868,17 @@ function Index() {
               onSubmit={submit}
               className="rounded-[2rem] border border-border bg-card p-7 shadow-[var(--shadow-lift)] sm:p-9"
             >
+              {orderSent && (
+                <div className="mb-6 flex items-start gap-3 rounded-2xl border border-sky/40 bg-sky/20 p-4 text-cocoa">
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-sky" />
+                  <div className="text-sm">
+                    <p className="font-bold">Order Received!</p>
+                    <p className="mt-0.5 text-cocoa/85">
+                      Your order has been sent to <strong>elcrustfundbakery@gmail.com</strong>. We will have everything freshly baked and ready for your {day}!
+                    </p>
+                  </div>
+                </div>
+              )}
               <h3 className="font-display text-3xl font-bold">Custom bakes &amp; orders</h3>
               <p className="mt-2 text-sm text-muted-foreground">
                 Wedding loaves, starter advice, wholesale for your café — or just this week's drop.
@@ -928,10 +985,20 @@ function Index() {
 
               <button
                 type="submit"
-                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-sky px-6 py-4 text-sm font-bold text-cocoa transition hover:brightness-105"
+                disabled={sending}
+                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-sky px-6 py-4 text-sm font-bold text-cocoa transition hover:brightness-105 disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                <ShoppingBasket className="h-4 w-4" />
-                Send my order
+                {sending ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Sending order to bakery...
+                  </>
+                ) : (
+                  <>
+                    <ShoppingBasket className="h-4 w-4" />
+                    Send my order
+                  </>
+                )}
               </button>
             </form>
           </div>

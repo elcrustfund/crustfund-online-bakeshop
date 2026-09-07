@@ -230,13 +230,22 @@
           </div>
 
           <div class="border-t border-[#e8dfcf] pt-5">
-            <div class="grid grid-cols-2 gap-3 mb-4">
-              <button class="rounded-2xl border border-sky bg-sky/25 py-2.5 text-xs font-bold text-cocoa">Porch Pickup</button>
-              <button class="rounded-2xl border border-[#e8dfcf] py-2.5 text-xs font-bold text-cocoa/70">Local Delivery</button>
+            <div id="preview-success-msg" class="hidden mb-4 rounded-2xl bg-sky/20 border border-sky/40 p-4 text-xs font-semibold text-cocoa">
+              ✅ Order sent! An email notification has been dispatched to <strong>elcrustfundbakery@gmail.com</strong>.
             </div>
-            <button onclick="alert('Thank you! Your pre-order has been placed.')" class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-sky py-4 text-center text-sm font-bold text-cocoa shadow-md transition hover:brightness-105">
+            <div class="grid grid-cols-2 gap-3 mb-3">
+              <button type="button" id="btn-method-pickup" onclick="setMethod('Pickup')" class="rounded-2xl border border-sky bg-sky text-cocoa py-2.5 text-xs font-bold transition">Porch Pickup</button>
+              <button type="button" id="btn-method-delivery" onclick="setMethod('Delivery')" class="rounded-2xl border border-[#e8dfcf] bg-white py-2.5 text-xs font-bold text-cocoa/70 transition">Local Delivery</button>
+            </div>
+            <div class="space-y-2.5 mb-4">
+              <input id="order-name" placeholder="Your name" class="w-full rounded-xl border border-[#e8dfcf] bg-[#fbf8ee] px-3.5 py-2.5 text-xs outline-none focus:border-sky" />
+              <input id="order-phone" placeholder="Phone number" type="tel" class="w-full rounded-xl border border-[#e8dfcf] bg-[#fbf8ee] px-3.5 py-2.5 text-xs outline-none focus:border-sky" />
+              <input id="order-email" placeholder="Email address" type="email" class="w-full rounded-xl border border-[#e8dfcf] bg-[#fbf8ee] px-3.5 py-2.5 text-xs outline-none focus:border-sky" />
+              <textarea id="order-notes" rows="2" placeholder="Delivery address or special requests..." class="w-full rounded-xl border border-[#e8dfcf] bg-[#fbf8ee] px-3.5 py-2.5 text-xs outline-none focus:border-sky"></textarea>
+            </div>
+            <button id="btn-submit-order" onclick="submitPreviewOrder()" class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-sky py-4 text-center text-sm font-bold text-cocoa shadow-md transition hover:brightness-105 disabled:opacity-50">
               <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-              Send My Order
+              <span id="btn-submit-text">Send My Order</span>
             </button>
           </div>
         </div>
@@ -516,6 +525,80 @@
     }
 
     renderProducts();
+
+    let fulfillmentMethod = 'Pickup';
+    function setMethod(m) {
+      fulfillmentMethod = m;
+      document.getElementById('btn-method-pickup').className = m === 'Pickup' ? 'rounded-2xl border border-sky bg-sky text-cocoa py-2.5 text-xs font-bold transition' : 'rounded-2xl border border-[#e8dfcf] bg-white py-2.5 text-xs font-bold text-cocoa/70 transition';
+      document.getElementById('btn-method-delivery').className = m === 'Delivery' ? 'rounded-2xl border border-sky bg-sky text-cocoa py-2.5 text-xs font-bold transition' : 'rounded-2xl border border-[#e8dfcf] bg-white py-2.5 text-xs font-bold text-cocoa/70 transition';
+    }
+
+    async function submitPreviewOrder() {
+      const entries = Object.entries(cart);
+      if (entries.length === 0) {
+        alert("Your basket is empty! Please add some fresh bread or pizzas first.");
+        return;
+      }
+      const name = document.getElementById('order-name').value.trim();
+      const phone = document.getElementById('order-phone').value.trim();
+      const email = document.getElementById('order-email').value.trim();
+      const notes = document.getElementById('order-notes').value.trim();
+
+      if (!name || !phone || !email) {
+        alert("Please provide your name, phone number, and email address.");
+        return;
+      }
+
+      let total = 0;
+      const orderSummary = entries.map(([id, q]) => {
+        const item = MENU_DATA.find(m => m.id === id);
+        total += item.price * q;
+        return `${q}x ${item.name} (${formatPrice(item.price * q)})`;
+      }).join('\n');
+
+      const btn = document.getElementById('btn-submit-order');
+      const btnText = document.getElementById('btn-submit-text');
+      btn.disabled = true;
+      btnText.innerText = "Sending order to elcrustfundbakery@gmail.com...";
+
+      try {
+        const res = await fetch("https://formsubmit.co/ajax/elcrustfundbakery@gmail.com", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            _subject: `🥖 New Order: ${name} (${formatPrice(total)}) - ${fulfillmentMethod}`,
+            _template: "table",
+            _captcha: "false",
+            "Customer Name": name,
+            "Phone Number": phone,
+            "Email Address": email,
+            "Fulfillment Type": fulfillmentMethod,
+            "Items Ordered": orderSummary,
+            "Total Amount": formatPrice(total),
+            "Address / Notes": notes || "None provided",
+            "Order Submitted At": new Date().toLocaleString()
+          })
+        });
+
+        if (res.ok) {
+          document.getElementById('preview-success-msg').classList.remove('hidden');
+          alert(`🎉 Order sent! An email notification with the order details has been dispatched to elcrustfundbakery@gmail.com for ${name}.`);
+          for (let key in cart) delete cart[key];
+          renderProducts();
+          updateBasket();
+        } else {
+          throw new Error("FormSubmit failed");
+        }
+      } catch (e) {
+        alert("Could not dispatch email automatically. Please check your connection or contact elcrustfundbakery@gmail.com directly.");
+      } finally {
+        btn.disabled = false;
+        btnText.innerText = "Send My Order";
+      }
+    }
   </script>
 </body>
 </html>
