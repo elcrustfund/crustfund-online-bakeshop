@@ -226,9 +226,19 @@
             <div id="preview-success-msg" class="hidden mb-4 rounded-2xl bg-sky/20 border border-sky/40 p-4 text-xs font-semibold text-cocoa">
               ✅ Order sent! An email notification has been dispatched to <strong>elcrustfundbakery@gmail.com</strong>.
             </div>
-            <div class="grid grid-cols-2 gap-3 mb-3">
-              <button type="button" id="btn-method-pickup" onclick="setMethod('Pickup')" class="rounded-2xl border border-sky bg-sky text-cocoa py-2.5 text-xs font-bold transition">Porch Pickup</button>
-              <button type="button" id="btn-method-delivery" onclick="setMethod('Delivery')" class="rounded-2xl border border-[#e8dfcf] bg-white py-2.5 text-xs font-bold text-cocoa/70 transition">Local Delivery</button>
+            <div class="mb-3">
+              <label class="block text-xs font-bold text-cocoa/70 mb-1.5 uppercase tracking-wider">Fulfillment Method</label>
+              <div class="grid grid-cols-2 gap-3">
+                <button type="button" id="btn-method-pickup" onclick="setMethod('Pickup')" class="rounded-2xl border border-sky bg-sky text-cocoa py-2.5 text-xs font-bold transition">Porch Pickup</button>
+                <button type="button" id="btn-method-delivery" onclick="setMethod('Delivery')" class="rounded-2xl border border-[#e8dfcf] bg-white py-2.5 text-xs font-bold text-cocoa/70 transition">Local Delivery</button>
+              </div>
+            </div>
+            <div class="mb-4">
+              <label class="block text-xs font-bold text-cocoa/70 mb-1.5 uppercase tracking-wider">Pick Up / Delivery Day (12–4 PM)</label>
+              <div class="grid grid-cols-2 gap-3">
+                <button type="button" id="btn-day-saturday" onclick="setDay('Saturday')" class="rounded-2xl border border-sky bg-sky text-cocoa py-2.5 text-xs font-bold transition">Saturday (12–4 PM)</button>
+                <button type="button" id="btn-day-sunday" onclick="setDay('Sunday')" class="rounded-2xl border border-[#e8dfcf] bg-white py-2.5 text-xs font-bold text-cocoa/70 transition">Sunday (12–4 PM)</button>
+              </div>
             </div>
             <div class="space-y-2.5 mb-4">
               <input id="order-name" placeholder="Your name" class="w-full rounded-xl border border-[#e8dfcf] bg-[#fbf8ee] px-3.5 py-2.5 text-xs outline-none focus:border-sky" />
@@ -520,10 +530,18 @@
     renderProducts();
 
     let fulfillmentMethod = 'Pickup';
+    let fulfillmentDay = 'Saturday';
+
     function setMethod(m) {
       fulfillmentMethod = m;
       document.getElementById('btn-method-pickup').className = m === 'Pickup' ? 'rounded-2xl border border-sky bg-sky text-cocoa py-2.5 text-xs font-bold transition' : 'rounded-2xl border border-[#e8dfcf] bg-white py-2.5 text-xs font-bold text-cocoa/70 transition';
       document.getElementById('btn-method-delivery').className = m === 'Delivery' ? 'rounded-2xl border border-sky bg-sky text-cocoa py-2.5 text-xs font-bold transition' : 'rounded-2xl border border-[#e8dfcf] bg-white py-2.5 text-xs font-bold text-cocoa/70 transition';
+    }
+
+    function setDay(d) {
+      fulfillmentDay = d;
+      document.getElementById('btn-day-saturday').className = d === 'Saturday' ? 'rounded-2xl border border-sky bg-sky text-cocoa py-2.5 text-xs font-bold transition' : 'rounded-2xl border border-[#e8dfcf] bg-white py-2.5 text-xs font-bold text-cocoa/70 transition';
+      document.getElementById('btn-day-sunday').className = d === 'Sunday' ? 'rounded-2xl border border-sky bg-sky text-cocoa py-2.5 text-xs font-bold transition' : 'rounded-2xl border border-[#e8dfcf] bg-white py-2.5 text-xs font-bold text-cocoa/70 transition';
     }
 
     async function submitPreviewOrder() {
@@ -562,13 +580,14 @@
             "Accept": "application/json"
           },
           body: JSON.stringify({
-            _subject: `🥖 New Order: ${name} (${formatPrice(total)}) - ${fulfillmentMethod}`,
+            _subject: `🥖 New Order: ${name} (${formatPrice(total)}) - ${fulfillmentMethod} ${fulfillmentDay} (12–4 PM)`,
             _template: "table",
             _captcha: "false",
             "Customer Name": name,
             "Phone Number": phone,
             "Email Address": email,
             "Fulfillment Type": fulfillmentMethod,
+            "Pickup / Delivery Day": `${fulfillmentDay} (12–4 PM)`,
             "Items Ordered": orderSummary,
             "Total Amount": formatPrice(total),
             "Address / Notes": notes || "None provided",
@@ -578,7 +597,7 @@
 
         if (res.ok) {
           document.getElementById('preview-success-msg').classList.remove('hidden');
-          alert(`🎉 Order sent! An email notification with the order details has been dispatched to elcrustfundbakery@gmail.com for ${name}.`);
+          alert(`🎉 Order sent! An email notification with the order details for ${fulfillmentDay} (12–4 PM) has been dispatched to elcrustfundbakery@gmail.com for ${name}.`);
           for (let key in cart) delete cart[key];
           renderProducts();
           updateBasket();

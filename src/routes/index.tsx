@@ -883,37 +883,43 @@ function Index() {
                 Wedding loaves, starter advice, wholesale for your café — or just this week's drop.
               </p>
 
-              <div className="mt-7 grid grid-cols-2 gap-3">
-                {(["Pickup", "Delivery"] as const).map((m) => (
-                  <button
-                    key={m}
-                    type="button"
-                    onClick={() => setMethod(m)}
-                    className={`rounded-2xl border px-4 py-3 text-sm font-bold transition ${
-                      method === m
-                        ? "border-sky bg-sky text-cocoa"
-                        : "border-border bg-background text-muted-foreground hover:border-sky/50"
-                    }`}
-                  >
-                    {m}
-                  </button>
-                ))}
+              <div className="mt-7">
+                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Fulfillment method</label>
+                <div className="mt-2 grid grid-cols-2 gap-3">
+                  {(["Pickup", "Delivery"] as const).map((m) => (
+                    <button
+                      key={m}
+                      type="button"
+                      onClick={() => setMethod(m)}
+                      className={`rounded-2xl border px-4 py-3 text-sm font-bold transition ${
+                        method === m
+                          ? "border-sky bg-sky text-cocoa"
+                          : "border-border bg-background text-muted-foreground hover:border-sky/50"
+                      }`}
+                    >
+                      {m === "Pickup" ? "Porch Pickup" : "Local Delivery"}
+                    </button>
+                  ))}
+                </div>
               </div>
-              <div className="mt-3 grid grid-cols-2 gap-3">
-                {(["Saturday", "Sunday"] as const).map((d) => (
-                  <button
-                    key={d}
-                    type="button"
-                    onClick={() => setDay(d)}
-                    className={`rounded-2xl border px-4 py-3 text-sm font-bold transition ${
-                      day === d
-                        ? "border-sky bg-sky text-cocoa"
-                        : "border-border bg-background text-muted-foreground hover:border-sky/50"
-                    }`}
-                  >
-                    {d}
-                  </button>
-                ))}
+              <div className="mt-4">
+                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Pick up / delivery day (12–4 PM)</label>
+                <div className="mt-2 grid grid-cols-2 gap-3">
+                  {(["Saturday", "Sunday"] as const).map((d) => (
+                    <button
+                      key={d}
+                      type="button"
+                      onClick={() => setDay(d)}
+                      className={`rounded-2xl border px-4 py-3 text-sm font-bold transition ${
+                        day === d
+                          ? "border-sky bg-sky text-cocoa"
+                          : "border-border bg-background text-muted-foreground hover:border-sky/50"
+                      }`}
+                    >
+                      {d} (12–4 PM)
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
@@ -978,7 +984,7 @@ function Index() {
                   </ul>
                 )}
                 <p className="mt-3 text-xs text-muted-foreground">
-                  {method} · {day}. Paid at {method === "Pickup" ? "pickup" : "delivery"}.
+                  {method === "Pickup" ? "Porch Pickup" : "Local Delivery"} · {day} (12–4 PM). Paid at {method === "Pickup" ? "pickup" : "delivery"}.
                 </p>
               </div>
 
